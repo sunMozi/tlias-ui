@@ -16,6 +16,7 @@ export default defineConfig({
   },
   server: {
     port: 3000, // 设定前端运行端口为 3000
+    host: '0.0.0.0', // 允许外部访问
     open: true, // 自动在浏览器打开
     proxy: {
       // 将 /api 的请求代理到后端服务

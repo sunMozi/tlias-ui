@@ -10,6 +10,7 @@ import {
   WarningFilled,
   Share,
   Document,
+  Notebook,
 } from '@element-plus/icons-vue'
 import type { Component } from 'vue'
 
@@ -52,6 +53,7 @@ export const menuList: MenuItem[] = [
     children: [
       { index: '/dept', title: '部门管理', icon: Help, permission: 'dept:view' },
       { index: '/emp', title: '员工管理', icon: Avatar, permission: 'emp:view' },
+      { index: '/doc', title: '接口文档', icon: Notebook, permission: 'doc:view' },
     ],
   },
   {
