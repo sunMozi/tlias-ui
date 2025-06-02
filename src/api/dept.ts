@@ -11,9 +11,13 @@ export function getDeptList(
   data: { total: number; rows: Dept[] }
   msg: string
 }> {
-  return request.get('/depts', {
+  return request.get('/depts/list', {
     params: { page, pageSize },
   })
+}
+
+export function getDeptAll(): Promise<Dept[]> {
+  return request.get('/depts')
 }
 
 export const createDept = (data: Dept) => {

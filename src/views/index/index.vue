@@ -27,7 +27,6 @@ const todayAvgPrice = ref(200)
 const todayRechargeCount = ref(2000)
 const todayRechargeAmount = ref(2000)
 
-
 // 新增顶部同步时间
 const lastSyncTime = ref('17:30')
 
@@ -56,15 +55,21 @@ const initCharts = () => {
   if (studentBarRef.value) {
     studentChart.value = echarts.init(studentBarRef.value)
     studentChart.value.setOption({
-      title: { text: '学员地区分布', left: 'center', textStyle: { fontSize: 16, fontWeight: 'bold' } },
+      title: {
+        text: '学员地区分布',
+        left: 'center',
+        textStyle: { fontSize: 16, fontWeight: 'bold' },
+      },
       tooltip: { trigger: 'axis' },
       xAxis: { type: 'category', data: ['北京', '上海', '广州', '深圳', '杭州', '成都', '武汉'] },
       yAxis: { type: 'value' },
-      series: [{
-        data: [120, 200, 150, 80, 130, 170, 90],
-        type: 'bar',
-        itemStyle: { color: '#5470C6' }
-      }]
+      series: [
+        {
+          data: [120, 200, 150, 80, 130, 170, 90],
+          type: 'bar',
+          itemStyle: { color: '#5470C6' },
+        },
+      ],
     })
   }
 
@@ -72,18 +77,24 @@ const initCharts = () => {
   if (genderPieRef.value) {
     genderChart.value = echarts.init(genderPieRef.value)
     genderChart.value.setOption({
-      title: { text: '员工性别占比', left: 'center', textStyle: { fontSize: 16, fontWeight: 'bold' } },
+      title: {
+        text: '员工性别占比',
+        left: 'center',
+        textStyle: { fontSize: 16, fontWeight: 'bold' },
+      },
       tooltip: { trigger: 'item' },
       legend: { bottom: 0 },
-      series: [{
-        type: 'pie',
-        radius: '50%',
-        data: [
-          { value: 335, name: '男', itemStyle: { color: '#91CC75' } },
-          { value: 275, name: '女', itemStyle: { color: '#EE6666' } },
-          { value: 45, name: '其他', itemStyle: { color: '#73C0DE' } }
-        ]
-      }]
+      series: [
+        {
+          type: 'pie',
+          radius: '50%',
+          data: [
+            { value: 335, name: '男', itemStyle: { color: '#91CC75' } },
+            { value: 275, name: '女', itemStyle: { color: '#EE6666' } },
+            { value: 45, name: '其他', itemStyle: { color: '#73C0DE' } },
+          ],
+        },
+      ],
     })
   }
 
@@ -91,16 +102,22 @@ const initCharts = () => {
   if (logLineRef.value) {
     logChart.value = echarts.init(logLineRef.value)
     logChart.value.setOption({
-      title: { text: '日志活跃趋势', left: 'center', textStyle: { fontSize: 16, fontWeight: 'bold' } },
+      title: {
+        text: '日志活跃趋势',
+        left: 'center',
+        textStyle: { fontSize: 16, fontWeight: 'bold' },
+      },
       tooltip: { trigger: 'axis' },
       xAxis: { type: 'category', data: ['周一', '周二', '周三', '周四', '周五', '周六', '周日'] },
       yAxis: { type: 'value' },
-      series: [{
-        data: [120, 180, 150, 200, 170, 220, 190],
-        type: 'line',
-        smooth: true,
-        itemStyle: { color: '#FC8452' }
-      }]
+      series: [
+        {
+          data: [120, 180, 150, 200, 170, 220, 190],
+          type: 'line',
+          smooth: true,
+          itemStyle: { color: '#FC8452' },
+        },
+      ],
     })
   }
 
@@ -108,15 +125,31 @@ const initCharts = () => {
   if (classStackRef.value) {
     classChart.value = echarts.init(classStackRef.value)
     classChart.value.setOption({
-      title: { text: '班级成绩对比', left: 'center', textStyle: { fontSize: 16, fontWeight: 'bold' } },
+      title: {
+        text: '班级成绩对比',
+        left: 'center',
+        textStyle: { fontSize: 16, fontWeight: 'bold' },
+      },
       tooltip: { trigger: 'axis' },
       legend: { bottom: 0 },
       xAxis: { type: 'category', data: ['语文', '数学', '英语', '物理', '化学'] },
       yAxis: { type: 'value' },
       series: [
-        { name: '班级 A', type: 'bar', stack: '总量', data: [90, 85, 88, 92, 87], itemStyle: { color: '#5470C6' } },
-        { name: '班级 B', type: 'bar', stack: '总量', data: [80, 78, 82, 88, 90], itemStyle: { color: '#91CC75' } }
-      ]
+        {
+          name: '班级 A',
+          type: 'bar',
+          stack: '总量',
+          data: [90, 85, 88, 92, 87],
+          itemStyle: { color: '#5470C6' },
+        },
+        {
+          name: '班级 B',
+          type: 'bar',
+          stack: '总量',
+          data: [80, 78, 82, 88, 90],
+          itemStyle: { color: '#91CC75' },
+        },
+      ],
     })
   }
 }

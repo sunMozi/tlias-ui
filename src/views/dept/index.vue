@@ -3,19 +3,29 @@
     <!-- 操作栏 -->
     <div class="flex justify-between items-center mb-4">
       <div class="space-x-2">
-        <el-button type="danger" size="small" @click="handleBatchDelete" :disabled="!selectedIds.length">
+        <el-button
+          type="danger"
+          size="small"
+          @click="handleBatchDelete"
+          :disabled="!selectedIds.length"
+        >
           批量删除
         </el-button>
-        <el-button type="success" size="small" @click="handleAdd">
-          新增部门
-        </el-button>
+        <el-button type="success" size="small" @click="handleAdd"> 新增部门 </el-button>
       </div>
     </div>
 
     <!-- 部门表格 -->
-    <el-table v-loading="loading" :data="empList" border stripe class="w-full text-sm"
-      header-cell-class-name="bg-gray-100 text-gray-800 text-sm font-medium" :empty-text="'暂无部门数据'"
-      @selection-change="handleSelectionChange">
+    <el-table
+      v-loading="loading"
+      :data="empList"
+      border
+      stripe
+      class="w-full text-sm"
+      header-cell-class-name="bg-gray-100 text-gray-800 text-sm font-medium"
+      :empty-text="'暂无部门数据'"
+      @selection-change="handleSelectionChange"
+    >
       <el-table-column type="selection" width="55" />
       <el-table-column label="序号" width="60">
         <template #default="{ $index }">
@@ -43,7 +53,11 @@
 
     <!-- 分页 -->
     <div class="flex justify-center mt-6">
-      <Pagination :pagination="pagination" @page-change="handlePageChange" @size-change="handleSizeChange" />
+      <Pagination
+        :pagination="pagination"
+        @page-change="handlePageChange"
+        @size-change="handleSizeChange"
+      />
     </div>
   </div>
 
@@ -98,7 +112,7 @@ const editForm = ref<Dept>({ id: 0, name: '', createTime: '', updateTime: '' })
 const addFormRef = ref()
 const editFormRef = ref()
 
-const getEmpList = async () => {
+const getDepts = async () => {
   loading.value = true
   try {
     const res = await getDeptList(pagination.value.page, pagination.value.pageSize)
@@ -114,8 +128,12 @@ const getEmpList = async () => {
 const formatDate = (val?: string) => {
   if (!val) return ''
   return new Date(val).toLocaleString('zh-CN', {
-    year: 'numeric', month: '2-digit', day: '2-digit',
-    hour: '2-digit', minute: '2-digit', second: '2-digit'
+    year: 'numeric',
+    month: '2-digit',
+    day: '2-digit',
+    hour: '2-digit',
+    minute: '2-digit',
+    second: '2-digit',
   })
 }
 
@@ -130,7 +148,7 @@ const submitAddForm = async () => {
     await createDept({ ...addForm.value, id: 0, createTime: '', updateTime: '' })
     ElMessage.success('新增部门成功')
     addDialogVisible.value = false
-    getEmpList()
+    getDepts()
   } catch (error) {
     console.error('新增部门失败', error)
   }
@@ -147,29 +165,27 @@ const submitEditForm = async () => {
     await updateDept(editForm.value)
     ElMessage.success('编辑部门成功')
     editDialogVisible.value = false
-    getEmpList()
+    getDepts()
   } catch (error) {
     console.error('编辑部门失败', error)
   }
 }
 
 const handleDelete = (row: Dept) => {
-  ElMessageBox.confirm(
-    `确定要删除部门 "${row.name}" 吗？此操作不可撤销。`,
-    '删除部门确认',
-    {
-      confirmButtonText: '确认删除',
-      cancelButtonText: '取消',
-      type: 'warning',
-      center: true,
-    }
-  ).then(async () => {
-    await deleteDept(row.id)
-    ElMessage.success('删除部门成功')
-    getEmpList()
-  }).catch(() => {
-    ElMessage.info('已取消删除操作')
+  ElMessageBox.confirm(`确定要删除部门 "${row.name}" 吗？此操作不可撤销。`, '删除部门确认', {
+    confirmButtonText: '确认删除',
+    cancelButtonText: '取消',
+    type: 'warning',
+    center: true,
   })
+    .then(async () => {
+      await deleteDept(row.id)
+      ElMessage.success('删除部门成功')
+      getDepts()
+    })
+    .catch(() => {
+      ElMessage.info('已取消删除操作')
+    })
 }
 
 const handleSelectionChange = (selection: Dept[]) => {
@@ -182,7 +198,7 @@ const handleBatchDelete = () => {
     .then(() => {
       ElMessage.success('批量删除成功')
       selectedIds.value = []
-      getEmpList()
+      getDepts()
     })
     .catch((error) => {
       console.error('批量删除失败', error)
@@ -191,13 +207,13 @@ const handleBatchDelete = () => {
 
 const handlePageChange = (page: number) => {
   pagination.value.page = page
-  getEmpList()
+  getDepts()
 }
 
 const handleSizeChange = (pageSize: number) => {
   pagination.value.pageSize = pageSize
-  getEmpList()
+  getDepts()
 }
 
-onMounted(getEmpList)
+onMounted(getDepts)
 </script>

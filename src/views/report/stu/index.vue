@@ -1,7 +1,3 @@
-<script lang="ts" setup>
+<script lang="ts" setup></script>
 
-</script>
-
-<template>
-  学员信息统计
-</template>
+<template>学员信息统计</template>

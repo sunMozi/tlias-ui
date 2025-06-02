@@ -1,7 +1,3 @@
-<script lang="ts" setup>
+<script lang="ts" setup></script>
 
-</script>
-
-<template>
-  班级管理
-</template>
+<template>班级管理</template>
