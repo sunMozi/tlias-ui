@@ -224,6 +224,16 @@ const handleBatchDelete = () => {
     })
 }
 
+const handlePageChange = (page: number) => {
+  pagination.value.page = page
+  getEmpList()
+}
+
+const handleSizeChange = (pageSize: number) => {
+  pagination.value.pageSize = pageSize
+  getEmpList()
+}
+
 onMounted(() => {
   getEmpList()
 })

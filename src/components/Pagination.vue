@@ -1,7 +1,7 @@
 <template>
-  <el-pagination v-model:current-page="pagination.page" v-model:page-size="pagination.pageSize"
-    :total="pagination.total" layout="total, sizes, prev, pager, next, jumper"
-    @size-change="$emit('size-change', pagination.pageSize)" @current-change="$emit('page-change', pagination.page)" />
+  <el-pagination :current-page="pagination.page" :page-size="pagination.pageSize" :total="pagination.total"
+    layout="total, sizes, prev, pager, next, jumper" @size-change="$emit('size-change', $event)"
+    @current-change="$emit('page-change', $event)" />
 </template>
 
 <script lang="ts" setup>
