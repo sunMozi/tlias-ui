@@ -84,7 +84,7 @@ import type { Employee } from '@/types/employee'
 import { getDeptList, getEmployeeById, deleteEmployee } from '@/api/employee'
 import Pagination from '@/components/Pagination.vue'
 import EmployeeEditDialog from '@/components/EmployeeEditDialog.vue'
-import { ElMessage } from 'element-plus'
+import { ElMessage, ElMessageBox } from 'element-plus'
 
 /** 员工列表数据 */
 const empList = ref<Employee[]>([])
@@ -199,7 +199,6 @@ const handleSaveEmployee = async () => {
   getEmpList() // 保存员工后刷新列表
 }
 
-import { ElMessage, ElMessageBox } from 'element-plus'
 
 /** 删除单个员工 */
 const handleDelete = async (row: Employee) => {
