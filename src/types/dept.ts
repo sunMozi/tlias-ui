@@ -1,4 +1,3 @@
-// src/types/dept.ts
 export interface Dept {
   id: number
   name: string
