@@ -8,8 +8,8 @@ export interface EmployeeQueryParams {
   pageSize: number
   name?: string
   gender?: string
-  begin?: string // 对应 entryDateRange[0]
-  end?: string // 对应 entryDateRange[1]
+  begin?: string
+  end?: string
 }
 
 /** 列表接口：返回条数与员工数组 */
@@ -41,4 +41,8 @@ export function deleteEmployee(ids: number | number[]) {
     params: { ids: idArray },
     paramsSerializer: (params) => params.ids.map((id: number) => `ids=${id}`).join('&'),
   })
+}
+
+export const getEmployeeList = (): Promise<Employee[]> => {
+  return request.get('/emps/list')
 }
