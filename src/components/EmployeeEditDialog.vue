@@ -183,7 +183,6 @@ const deptList = ref([] as Dept[])
 const getDeptList = async () => {
   const res = await getDeptAll();
   deptList.value = res;
-  console.log('部门列表:', deptList.value);
 };
 
 onMounted(() => {
@@ -293,7 +292,6 @@ function beforeUpload(file: File) {
 }
 
 function handleUploadSuccess(response: { data: string }) {
-  console.log('头像上传成功:', response);
   localEmployee.image = response.data;
   ElMessage.success('头像上传成功');
 }

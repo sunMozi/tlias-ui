@@ -15,7 +15,7 @@ const routes: Array<RouteRecordRaw> = [
       {
         path: 'clazz',
         name: 'Clazz',
-        component: () => import('@/views/clazz/index.vue'),
+        component: () => import('@/views/clazz'),
         meta: { title: '班级管理' },
       },
       {
