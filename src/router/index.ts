@@ -5,6 +5,7 @@ const routes: Array<RouteRecordRaw> = [
   {
     path: '/',
     component: () => import('@/views/layout/index.vue'),
+    redirect: '/index',
     children: [
       {
         path: 'index',
