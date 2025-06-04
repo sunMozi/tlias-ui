@@ -4,6 +4,7 @@ import { selectClazzAll } from '@/api/clazz'
 import type { Student } from '@/types/stu'
 import BaseCard from '@/components/ui/BaseCard.vue'
 import rules from '@/rules/studentRules'
+import { disciplineDialog } from '@/server/stu'
 import {
   Button,
   DatePicker,
@@ -204,6 +205,12 @@ export default defineComponent(() => {
     }
   }
 
+  const discipline = (row: Student) => {
+    disciplineDialog(row, () => {
+      getStuList()
+    })
+  }
+
   const degreeMap = new Map<number, string>([
     [1, '初中'],
     [2, '高中'],
@@ -261,7 +268,7 @@ export default defineComponent(() => {
           <Button size="small" onClick={() => handleEdit(row)}>
             编辑
           </Button>
-          <Button size="small" theme="warning" onClick={() => handleEdit(row)}>
+          <Button size="small" theme="warning" onClick={() => discipline(row)}>
             违纪
           </Button>
           <Button size="small" theme="danger" variant="outline" onClick={() => handleDelete(row)}>

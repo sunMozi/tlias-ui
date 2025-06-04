@@ -37,3 +37,7 @@ export function delStuByIds(ids: number[]) {
 export const selectStuByClazzId = (clazzId: number) => {
   return request.get(`/students/clazz/${clazzId}`)
 }
+
+export const putViolation = (id: number, score: number) => {
+  return request.put(`/students/violation/${id}/${score}`)
+}
