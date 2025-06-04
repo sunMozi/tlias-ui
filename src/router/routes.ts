@@ -22,7 +22,7 @@ const routes: Array<RouteRecordRaw> = [
       {
         path: 'stu',
         name: 'Student',
-        component: () => import('@/views/stu/index.vue'),
+        component: () => import('@/views/stu'),
         meta: { title: '学生管理' },
       },
       {
