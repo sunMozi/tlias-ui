@@ -33,3 +33,7 @@ export const createClazz = async (clazz: Clazz): Promise<Clazz> => {
 export const deleteClazz = async (clazzId: number | string): Promise<void> => {
   return await request.delete(`/clazzs/${clazzId}`)
 }
+
+export const selectClazzAll = async (): Promise<Clazz[]> => {
+  return await request.get(`/clazzs/list`)
+}

@@ -167,11 +167,9 @@ export default defineComponent(() => {
       const safePayload = omit(form.value, ['createTime', 'updateTime'])
 
       if (isEditMode.value) {
-        console.log('保存编辑的班级信息：', safePayload)
         await updateClazz(safePayload as Clazz)
         MessagePlugin.success('班级信息已更新')
       } else {
-        console.log('新增班级信息：', safePayload)
         await createClazz(safePayload as Clazz)
         MessagePlugin.success('班级信息已新增')
       }

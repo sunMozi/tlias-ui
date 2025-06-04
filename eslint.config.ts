@@ -17,6 +17,9 @@ export default defineConfigWithVueTs(
     rules: {
       // 关闭单词组件名限制
       'vue/multi-word-component-names': 'off',
+
+      // 允许 any 类型
+      '@typescript-eslint/no-explicit-any': 'off',
     },
   },
 )

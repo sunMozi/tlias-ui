@@ -20,7 +20,9 @@ const pageTitle = computed(() => {
       <LayoutSidebar />
       <el-main class="p-4 bg-gray-50 overflow-auto">
         <div class="mb-6" v-show="pageTitle">
-          <h1 class="text-2xl font-semibold text-gray-800 border-l-4 border-blue-600 pl-4 drop-shadow-sm select-none">
+          <h1
+            class="text-2xl font-semibold text-gray-800 border-l-4 border-blue-600 pl-4 drop-shadow-sm select-none"
+          >
             {{ pageTitle }}
           </h1>
         </div>

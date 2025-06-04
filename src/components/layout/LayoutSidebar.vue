@@ -19,8 +19,10 @@ const handleMenuClick = (index: string) => {
 </script>
 
 <template>
-  <el-aside :style="{ width: isCollapse ? '64px' : '240px' }" class="transition-all duration-300 ease-in-out border-r border-gray-200 bg-white shadow-sm
-           overflow-y-auto overflow-x-hidden min-w-0 custom-scrollbar">
+  <el-aside
+    :style="{ width: isCollapse ? '64px' : '240px' }"
+    class="transition-all duration-300 ease-in-out border-r border-gray-200 bg-white shadow-sm overflow-y-auto overflow-x-hidden min-w-0 custom-scrollbar"
+  >
     <!-- 顶部区域：标题与收起按钮 -->
     <div class="flex items-center justify-between h-14 px-3 border-b border-gray-100 bg-white">
       <transition name="fade">
@@ -28,13 +30,28 @@ const handleMenuClick = (index: string) => {
           功能导航
         </div>
       </transition>
-      <el-button circle size="small" @click="toggleCollapse" :icon="isCollapse ? Expand : Fold" class="ml-auto" />
+      <el-button
+        circle
+        size="small"
+        @click="toggleCollapse"
+        :icon="isCollapse ? Expand : Fold"
+        class="ml-auto"
+      />
     </div>
 
     <!-- 菜单区域 -->
-    <el-menu class="h-full border-0 bg-transparent text-sm min-w-0" :default-active="route.path" :collapse="isCollapse"
-      :collapse-transition="true" @select="handleMenuClick" router background-color="transparent" text-color="#4B5563"
-      active-text-color="#2563eb" unique-opened>
+    <el-menu
+      class="h-full border-0 bg-transparent text-sm min-w-0"
+      :default-active="route.path"
+      :collapse="isCollapse"
+      :collapse-transition="true"
+      @select="handleMenuClick"
+      router
+      background-color="transparent"
+      text-color="#4B5563"
+      active-text-color="#2563eb"
+      unique-opened
+    >
       <template v-for="item in menuList" :key="item.index">
         <!-- 有子菜单 -->
         <el-sub-menu v-if="item.children" :index="item.index">
@@ -45,8 +62,12 @@ const handleMenuClick = (index: string) => {
             <span class="ml-1">{{ item.title }}</span>
           </template>
 
-          <el-menu-item v-for="child in item.children" :key="child.index" :index="child.index"
-            class="hover:bg-blue-50 hover:text-blue-600 transition-all duration-200 whitespace-nowrap overflow-hidden text-ellipsis">
+          <el-menu-item
+            v-for="child in item.children"
+            :key="child.index"
+            :index="child.index"
+            class="hover:bg-blue-50 hover:text-blue-600 transition-all duration-200 whitespace-nowrap overflow-hidden text-ellipsis"
+          >
             <el-icon class="text-sm text-gray-400 mr-1">
               <component :is="child.icon" />
             </el-icon>
@@ -55,8 +76,11 @@ const handleMenuClick = (index: string) => {
         </el-sub-menu>
 
         <!-- 无子菜单 -->
-        <el-menu-item v-else :index="item.index"
-          class="hover:bg-blue-50 hover:text-blue-600 transition-all duration-200 whitespace-nowrap overflow-hidden text-ellipsis">
+        <el-menu-item
+          v-else
+          :index="item.index"
+          class="hover:bg-blue-50 hover:text-blue-600 transition-all duration-200 whitespace-nowrap overflow-hidden text-ellipsis"
+        >
           <el-icon class="text-base">
             <component :is="item.icon" />
           </el-icon>

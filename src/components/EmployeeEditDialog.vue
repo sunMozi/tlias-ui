@@ -1,65 +1,140 @@
 <template>
-  <el-dialog :model-value="visible" @close="onClose" :title="dialogTitle" width="800px" :destroy-on-close="true"
-    class="rounded-lg shadow-lg border border-gray-200 bg-white">
-
-    <el-form ref="formRef" :model="localEmployee" :rules="rules" autocomplete="off" size="default" label-width="100px"
-      label-position="left" class="p-4">
+  <el-dialog
+    :model-value="visible"
+    @close="onClose"
+    :title="dialogTitle"
+    width="800px"
+    :destroy-on-close="true"
+    class="rounded-lg shadow-lg border border-gray-200 bg-white"
+  >
+    <el-form
+      ref="formRef"
+      :model="localEmployee"
+      :rules="rules"
+      autocomplete="off"
+      size="default"
+      label-width="100px"
+      label-position="left"
+      class="p-4"
+    >
       <div>
         <h3 class="text-lg font-semibold text-gray-800 mb-4 flex items-center">
           <i class="el-icon-user mr-2 text-blue-500"></i>基本信息
         </h3>
         <div class="grid grid-cols-2 gap-4">
           <el-form-item label="用户名" prop="username">
-            <el-input v-model="localEmployee.username" placeholder="员工登录账号" clearable maxlength="20" show-word-limit
-              class="form-input" />
+            <el-input
+              v-model="localEmployee.username"
+              placeholder="员工登录账号"
+              clearable
+              maxlength="20"
+              show-word-limit
+              class="form-input"
+            />
           </el-form-item>
           <el-form-item label="姓名" prop="name">
-            <el-input v-model="localEmployee.name" placeholder="员工真实姓名" clearable maxlength="30" show-word-limit
-              class="form-input" />
+            <el-input
+              v-model="localEmployee.name"
+              placeholder="员工真实姓名"
+              clearable
+              maxlength="30"
+              show-word-limit
+              class="form-input"
+            />
           </el-form-item>
           <el-form-item label="性别" prop="gender">
-            <el-select v-model="localEmployee.gender" placeholder="请选择性别" clearable class="form-input">
+            <el-select
+              v-model="localEmployee.gender"
+              placeholder="请选择性别"
+              clearable
+              class="form-input"
+            >
               <el-option label="男" :value="1" />
               <el-option label="女" :value="2" />
             </el-select>
           </el-form-item>
           <el-form-item label="手机号码" prop="phone">
-            <el-input v-model="localEmployee.phone" placeholder="11位手机号码" clearable maxlength="11" show-word-limit
-              class="form-input" />
+            <el-input
+              v-model="localEmployee.phone"
+              placeholder="11位手机号码"
+              clearable
+              maxlength="11"
+              show-word-limit
+              class="form-input"
+            />
           </el-form-item>
 
           <el-form-item label="职位" prop="job">
-            <el-select v-model="localEmployee.job" placeholder="请选择职位" size="large" style="width: 240px">
-              <el-option v-for="item in jobList" :key="item.value" :label="item.label" :value="item.value" />
+            <el-select
+              v-model="localEmployee.job"
+              placeholder="请选择职位"
+              size="large"
+              style="width: 240px"
+            >
+              <el-option
+                v-for="item in jobList"
+                :key="item.value"
+                :label="item.label"
+                :value="item.value"
+              />
             </el-select>
           </el-form-item>
 
           <el-form-item label="薪资" prop="salary">
-            <el-input-number v-model="localEmployee.salary" :min="0" :precision="2" controls-position="right"
-              :step="500" class="w-full form-input">
+            <el-input-number
+              v-model="localEmployee.salary"
+              :min="0"
+              :precision="2"
+              controls-position="right"
+              :step="500"
+              class="w-full form-input"
+            >
               <template #prefix>
                 <span class="text-gray-500 mr-1">¥</span>
               </template>
             </el-input-number>
           </el-form-item>
           <el-form-item label="入职日期" prop="entryDate">
-            <el-date-picker v-model="localEmployee.entryDate" type="date" placeholder="选择入职日期" format="YYYY/MM/DD"
-              value-format="YYYY-MM-DD" clearable class="w-full form-input" />
+            <el-date-picker
+              v-model="localEmployee.entryDate"
+              type="date"
+              placeholder="选择入职日期"
+              format="YYYY/MM/DD"
+              value-format="YYYY-MM-DD"
+              clearable
+              class="w-full form-input"
+            />
           </el-form-item>
 
-
           <el-form-item label="所属部门" prop="department">
-            <el-select v-model="localEmployee.deptId" placeholder="请选择部门" clearable class="form-input">
-              <el-option v-for="dept in deptList" :key="dept.id" :label="dept.name" :value="dept.id" />
+            <el-select
+              v-model="localEmployee.deptId"
+              placeholder="请选择部门"
+              clearable
+              class="form-input"
+            >
+              <el-option
+                v-for="dept in deptList"
+                :key="dept.id"
+                :label="dept.name"
+                :value="dept.id"
+              />
             </el-select>
           </el-form-item>
 
-
-          <el-upload action="http://localhost:8080/upload" :show-file-list="false" :limit="1"
-            accept="image/png, image/jpeg" :on-exceed="handleExceed" :before-upload="beforeUpload"
-            :on-success="handleUploadSuccess">
+          <el-upload
+            action="http://localhost:8080/upload"
+            :show-file-list="false"
+            :limit="1"
+            accept="image/png, image/jpeg"
+            :on-exceed="handleExceed"
+            :before-upload="beforeUpload"
+            :on-success="handleUploadSuccess"
+          >
             <template v-if="localEmployee.image">
-              <div class="w-[96px] h-[96px] rounded-lg overflow-hidden border border-gray-200 shadow-sm">
+              <div
+                class="w-[96px] h-[96px] rounded-lg overflow-hidden border border-gray-200 shadow-sm"
+              >
                 <img :src="localEmployee.image" class="w-full h-full object-cover" alt="头像" />
               </div>
             </template>
@@ -67,8 +142,6 @@
               <i class="el-icon-upload mr-1"></i> 上传头像
             </el-button>
           </el-upload>
-
-
         </div>
       </div>
 
@@ -79,15 +152,30 @@
         </h3>
 
         <div class="bg-gray-50 rounded-lg p-4 border border-gray-200 space-y-4">
-          <div v-for="(exp, index) in localEmployee.exprList" :key="index"
-            class="flex items-center gap-4 py-2 px-4 border border-gray-200 rounded-md bg-white">
+          <div
+            v-for="(exp, index) in localEmployee.exprList"
+            :key="index"
+            class="flex items-center gap-4 py-2 px-4 border border-gray-200 rounded-md bg-white"
+          >
             <!-- 开始 - 结束 日期 -->
             <div class="flex items-center gap-2">
-              <el-date-picker v-model="exp.begin" type="date" placeholder="开始" format="YYYY/MM/DD"
-                value-format="YYYY-MM-DD" class="w-[120px] form-input-sm" />
+              <el-date-picker
+                v-model="exp.begin"
+                type="date"
+                placeholder="开始"
+                format="YYYY/MM/DD"
+                value-format="YYYY-MM-DD"
+                class="w-[120px] form-input-sm"
+              />
               <span class="text-gray-400">至</span>
-              <el-date-picker v-model="exp.end" type="date" placeholder="结束" format="YYYY/MM/DD"
-                value-format="YYYY-MM-DD" class="w-[120px] form-input-sm" />
+              <el-date-picker
+                v-model="exp.end"
+                type="date"
+                placeholder="结束"
+                format="YYYY/MM/DD"
+                value-format="YYYY-MM-DD"
+                class="w-[120px] form-input-sm"
+              />
             </div>
 
             <!-- 公司 -->
@@ -108,13 +196,22 @@
             </div>
           </div>
 
-          <div v-if="!localEmployee.exprList || localEmployee.exprList.length === 0"
-            class="text-gray-500 text-sm text-center py-4">
+          <div
+            v-if="!localEmployee.exprList || localEmployee.exprList.length === 0"
+            class="text-gray-500 text-sm text-center py-4"
+          >
             暂无工作经历，请添加
           </div>
 
           <div class="mt-4 flex justify-center">
-            <el-button type="success" plain icon="el-icon-plus" size="small" class="add-exp-btn" @click="addExperience">
+            <el-button
+              type="success"
+              plain
+              icon="el-icon-plus"
+              size="small"
+              class="add-exp-btn"
+              @click="addExperience"
+            >
               添加工作经历
             </el-button>
           </div>
@@ -142,7 +239,6 @@ import { updateEmployee, createEmployee } from '@/api/employee'
 import { getDeptAll } from '@/api/dept'
 import type { Dept } from '@/types/dept'
 
-
 const props = defineProps<{
   visible: boolean
   employee: Employee | null
@@ -153,7 +249,7 @@ const emit = defineEmits<{
   (e: 'close'): void
 }>()
 
-const formRef = ref<InstanceType<typeof import('element-plus')['ElForm']> | null>(null)
+const formRef = ref<InstanceType<(typeof import('element-plus'))['ElForm']> | null>(null)
 
 const localEmployee = reactive<Employee>({
   id: 0,
@@ -166,7 +262,7 @@ const localEmployee = reactive<Employee>({
   image: '',
   entryDate: '',
   deptId: '',
-  exprList: []
+  exprList: [],
 })
 
 const jobList = [
@@ -175,21 +271,19 @@ const jobList = [
   { label: '学工主管', value: 3 },
   { label: '教研主管', value: 4 },
   { label: '咨询师', value: 5 },
-  { label: '其他', value: 6 }
+  { label: '其他', value: 6 },
 ]
 
 const deptList = ref([] as Dept[])
 
 const getDeptList = async () => {
-  const res = await getDeptAll();
-  deptList.value = res;
-};
+  const res = await getDeptAll()
+  deptList.value = res
+}
 
 onMounted(() => {
-  getDeptList();
-});
-
-
+  getDeptList()
+})
 
 watch(
   () => props.employee,
@@ -213,11 +307,11 @@ watch(
         image: '',
         entryDate: '',
         deptId: '',
-        exprList: []
+        exprList: [],
       })
     }
   },
-  { immediate: true, deep: true }
+  { immediate: true, deep: true },
 )
 
 const dialogTitle = computed(() => (props.employee ? '编辑员工' : '新增员工'))
@@ -279,7 +373,8 @@ function handleExceed() {
 }
 
 function beforeUpload(file: File) {
-  const isJPGorPNG = file.type === 'image/jpeg' || file.type === 'image/png' || file.type === 'image/jpg'
+  const isJPGorPNG =
+    file.type === 'image/jpeg' || file.type === 'image/png' || file.type === 'image/jpg'
   const isLt2M = file.size / 1024 / 1024 < 2
 
   if (!isJPGorPNG) {
@@ -292,8 +387,8 @@ function beforeUpload(file: File) {
 }
 
 function handleUploadSuccess(response: { data: string }) {
-  localEmployee.image = response.data;
-  ElMessage.success('头像上传成功');
+  localEmployee.image = response.data
+  ElMessage.success('头像上传成功')
 }
 
 function removeExperience(index: number) {
@@ -304,7 +399,7 @@ function removeExperience(index: number) {
 
 function addExperience() {
   if (!localEmployee.exprList) {
-    localEmployee.exprList = [];
+    localEmployee.exprList = []
   }
   localEmployee.exprList.push({
     begin: '',
@@ -312,7 +407,7 @@ function addExperience() {
     company: '',
     job: '',
     id: 0,
-    empId: 0
+    empId: 0,
   })
 }
 </script>

@@ -4,7 +4,8 @@ import { EditPen, SwitchButton } from '@element-plus/icons-vue'
 
 <template>
   <el-header
-    class="flex items-center justify-between h-16 px-6 bg-gradient-to-r from-[#00547d] via-[#00aaa0] to-[#a8eb12] shadow-md">
+    class="flex items-center justify-between h-16 px-6 bg-gradient-to-r from-[#00547d] via-[#00aaa0] to-[#a8eb12] shadow-md"
+  >
     <!-- 左侧标题 -->
     <h1 class="text-white text-xl font-semibold tracking-wide select-none">
       Tlias 智能学习辅助系统

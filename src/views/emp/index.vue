@@ -7,13 +7,25 @@
         <!-- 姓名 -->
         <div class="flex items-center gap-2 whitespace-nowrap">
           <span class="text-gray-700 text-sm font-medium">姓名</span>
-          <el-input v-model="filters.name" placeholder="请输入员工姓名" clearable class="w-48" size="default" />
+          <el-input
+            v-model="filters.name"
+            placeholder="请输入员工姓名"
+            clearable
+            class="w-48"
+            size="default"
+          />
         </div>
 
         <!-- 性别 -->
         <div class="flex items-center gap-2 whitespace-nowrap w-32">
           <span class="text-gray-700 text-sm font-medium">性别</span>
-          <el-select v-model="filters.gender" placeholder="请选择" clearable class="w-32" size="default">
+          <el-select
+            v-model="filters.gender"
+            placeholder="请选择"
+            clearable
+            class="w-32"
+            size="default"
+          >
             <el-option label="男" value="1" />
             <el-option label="女" value="2" />
           </el-select>
@@ -22,22 +34,37 @@
         <!-- 入职时间 -->
         <div class="flex items-center gap-2 whitespace-nowrap">
           <span class="text-gray-700 text-sm font-medium">入职时间</span>
-          <el-date-picker v-model="filters.entryDateRange" type="daterange" start-placeholder="开始日期"
-            end-placeholder="结束日期" range-separator="至" format="YYYY-MM-DD" value-format="YYYY-MM-DD" unlink-panels
-            clearable class="w-72" size="default" />
+          <el-date-picker
+            v-model="filters.entryDateRange"
+            type="daterange"
+            start-placeholder="开始日期"
+            end-placeholder="结束日期"
+            range-separator="至"
+            format="YYYY-MM-DD"
+            value-format="YYYY-MM-DD"
+            unlink-panels
+            clearable
+            class="w-72"
+            size="default"
+          />
         </div>
 
         <!-- 查询 / 清空 -->
         <div class="ml-auto flex items-center gap-2">
-          <el-button type="primary" icon="Search" @click="handleSearch"> 查询 </el-button>
-          <el-button icon="Refresh" @click="handleReset"> 清空 </el-button>
+          <el-button type="primary" icon="Search" @click="handleSearch"> 查询</el-button>
+          <el-button icon="Refresh" @click="handleReset"> 清空</el-button>
         </div>
       </div>
 
       <!-- 操作按钮区 -->
       <div class="mt-4 flex gap-3">
-        <el-button type="primary" icon="Plus" @click="handleAddEmployee"> 添加员工 </el-button>
-        <el-button type="danger" icon="Delete" :disabled="!selectedRows.length" @click="handleBatchDelete">
+        <el-button type="primary" icon="Plus" @click="handleAddEmployee"> 添加员工</el-button>
+        <el-button
+          type="danger"
+          icon="Delete"
+          :disabled="!selectedRows.length"
+          @click="handleBatchDelete"
+        >
           批量删除
         </el-button>
       </div>
@@ -50,7 +77,9 @@
       <el-table-column prop="gender" label="性别" :formatter="formatGender" />
       <el-table-column label="头像">
         <template #default="{ row }">
-          <div class="w-[100px] h-[50px] mx-a overflow-hidden rounded-lg border border-gray-200 shadow-sm">
+          <div
+            class="w-[100px] h-[50px] mx-a overflow-hidden rounded-lg border border-gray-200 shadow-sm"
+          >
             <el-image :src="row.image" fit="cover" class="w-full h-full object-cover" />
           </div>
         </template>
@@ -70,18 +99,26 @@
 
     <!-- 分页 -->
     <div class="flex justify-center mt-6">
-      <Pagination :pagination="pagination" @page-change="handlePageChange" @size-change="handleSizeChange" />
+      <Pagination
+        :pagination="pagination"
+        @page-change="handlePageChange"
+        @size-change="handleSizeChange"
+      />
     </div>
   </div>
 
-  <EmployeeEditDialog :visible="editDialogVisible" :employee="employee" @close="editDialogVisible = false"
-    @save="handleSaveEmployee" />
+  <EmployeeEditDialog
+    :visible="editDialogVisible"
+    :employee="employee"
+    @close="editDialogVisible = false"
+    @save="handleSaveEmployee"
+  />
 </template>
 
 <script lang="ts" setup>
-import { ref, reactive, onMounted } from 'vue'
+import { onMounted, reactive, ref } from 'vue'
 import type { Employee } from '@/types/employee'
-import { getDeptList, getEmployeeById, deleteEmployee } from '@/api/employee'
+import { deleteEmployee, getDeptList, getEmployeeById } from '@/api/employee'
 import Pagination from '@/components/Pagination.vue'
 import EmployeeEditDialog from '@/components/EmployeeEditDialog.vue'
 import { ElMessage, ElMessageBox } from 'element-plus'
@@ -110,7 +147,6 @@ const filters = reactive({
 
 /** 表格多选行 */
 const selectedRows = ref<Employee[]>([])
-
 
 const genderMap: Record<number, string> = {
   1: '男',
@@ -184,8 +220,7 @@ const handleAddEmployee = () => {
 
 /** 编辑某行员工 */
 const handleEdit = async (row: Employee) => {
-  const res = await getEmployeeById(row.id)
-  employee.value = res
+  employee.value = await getEmployeeById(row.id)
   editDialogVisible.value = true
 }
 /** 保存员工（新增/编辑） */
@@ -196,25 +231,20 @@ const handleSaveEmployee = async () => {
   // else { createEmployee(employee.value) }
   // 保存完成后：
   editDialogVisible.value = false
-  getEmpList() // 保存员工后刷新列表
+  await getEmpList() // 保存员工后刷新列表
 }
-
 
 /** 删除单个员工 */
 const handleDelete = async (row: Employee) => {
   try {
-    await ElMessageBox.confirm(
-      `确认删除员工【${row.name}】吗？`,
-      '删除确认',
-      {
-        confirmButtonText: '删除',
-        cancelButtonText: '取消',
-        type: 'warning',
-      }
-    )
+    await ElMessageBox.confirm(`确认删除员工【${row.name}】吗？`, '删除确认', {
+      confirmButtonText: '删除',
+      cancelButtonText: '取消',
+      type: 'warning',
+    })
     await deleteEmployee([row.id])
     ElMessage.success('删除成功')
-    getEmpList()
+    await getEmpList()
   } catch (error) {
     // 用户取消时不做处理
     console.error('删除员工失败:', error)
@@ -233,18 +263,17 @@ const handleBatchDelete = async () => {
         confirmButtonText: '删除',
         cancelButtonText: '取消',
         type: 'warning',
-      }
+      },
     )
     const ids = selectedRows.value.map((i) => i.id)
     await deleteEmployee(ids)
     ElMessage.success('批量删除成功')
-    getEmpList()
+    await getEmpList()
   } catch (error) {
     // 用户取消时不做处理
     console.error('批量删除员工失败:', error)
   }
 }
-
 
 /** 页码变化 */
 const handlePageChange = (page: number) => {
