@@ -1,5 +1,5 @@
 import request from '@/utils/request'
-import { Student } from '@/types/stu'
+import type { Student } from '@/types/stu.ts'
 
 export interface StudentQueryParams {
   page: number
@@ -11,9 +11,11 @@ export interface StudentQueryParams {
   masterId?: number
 }
 
-export const getStuAll = ((params: StudentQueryParams): Promise: {
+export const getStuAll = (
+  params: StudentQueryParams,
+): Promise<{
   rows: Student[]
   total: number
-} ) => {
-  return request.get('/stus')
+}> => {
+  return request.get('/stus', { params })
 }

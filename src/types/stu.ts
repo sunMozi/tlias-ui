@@ -1,4 +1,3 @@
-id: number
 export interface Student {
   /* */
   name: string
