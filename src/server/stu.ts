@@ -41,7 +41,10 @@ export const disciplineDialog = (row: any, onSuccess?: () => void) => {
         ],
       ),
     onConfirm: async () => {
-      console.log('score', score.value)
+      if (score.value === 0) {
+        MessagePlugin.warning('请输入扣分分数')
+        return
+      }
       await putViolation(row.id, score.value)
       MessagePlugin.success('违纪处理已提交')
       dialogInstance.hide()
