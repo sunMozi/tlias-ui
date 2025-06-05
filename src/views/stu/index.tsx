@@ -1,6 +1,5 @@
 import { defineComponent, onMounted, reactive, ref } from 'vue'
 import { selectStuAll, selectStuById, updateStu, createStu, delStuByIds } from '@/api/stu'
-import { useDebounceFn } from '@/hook/useDebounceFn'
 import { selectClazzAll } from '@/api/clazz'
 import type { Student } from '@/types/stu'
 import BaseCard from '@/components/ui/BaseCard.vue'

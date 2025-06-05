@@ -1,64 +1,13 @@
-<script lang="ts" setup>
-import { ref } from 'vue'
-
-const loginForm = ref({ username: '', password: '' })
-</script>
-
 <template>
-  <div id="container">
-    <div class="login-form">
-      <el-form label-width="80px">
-        <p class="title">Tlias智能学习辅助系统</p>
-        <el-form-item label="用户名" prop="username">
-          <el-input v-model="loginForm.username" placeholder="请输入用户名"></el-input>
-        </el-form-item>
+  <div class="min-h-screen bg-cover bg-center bg-no-repeat flex items-center justify-center relative overflow-hidden"
+    style="background-image: url('bg.png')">
 
-        <el-form-item label="密码" prop="password">
-          <el-input
-            type="password"
-            v-model="loginForm.password"
-            placeholder="请输入密码"
-          ></el-input>
-        </el-form-item>
 
-        <el-form-item>
-          <el-button class="button" type="primary">登 录</el-button>
-          <el-button class="button" type="info">重 置</el-button>
-        </el-form-item>
-      </el-form>
-    </div>
+
+
   </div>
 </template>
 
-<style scoped>
-#container {
-  padding: 10%;
-  height: 410px;
-  background-image: url('../../assets/bg1.jpg');
-  background-repeat: no-repeat;
-  background-size: cover;
-}
+<script lang="ts" setup>
 
-.login-form {
-  max-width: 400px;
-  padding: 30px;
-  margin: 0 auto;
-  border: 1px solid #e0e0e0;
-  border-radius: 10px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
-  background-color: white;
-}
-
-.title {
-  font-size: 30px;
-  font-family: '楷体';
-  text-align: center;
-  margin-bottom: 30px;
-  font-weight: bold;
-}
-
-.button {
-  margin-top: 30px;
-  width: 120px;
-}
-</style>
+</script>

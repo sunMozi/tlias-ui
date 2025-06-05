@@ -3,12 +3,7 @@
     <!-- 操作栏 -->
     <div class="flex justify-between items-center mb-4">
       <div class="space-x-2">
-        <el-button
-          type="danger"
-          size="small"
-          @click="handleBatchDelete"
-          :disabled="!selectedIds.length"
-        >
+        <el-button type="danger" size="small" @click="handleBatchDelete" :disabled="!selectedIds.length">
           批量删除
         </el-button>
         <el-button type="success" size="small" @click="handleAdd"> 新增部门 </el-button>
@@ -16,16 +11,9 @@
     </div>
 
     <!-- 部门表格 -->
-    <el-table
-      v-loading="loading"
-      :data="empList"
-      border
-      stripe
-      class="w-full text-sm"
-      header-cell-class-name="bg-gray-100 text-gray-800 text-sm font-medium"
-      :empty-text="'暂无部门数据'"
-      @selection-change="handleSelectionChange"
-    >
+    <el-table v-loading="loading" :data="empList" border stripe class="w-full text-sm"
+      header-cell-class-name="bg-gray-100 text-gray-800 text-sm font-medium" :empty-text="'暂无部门数据'"
+      @selection-change="handleSelectionChange">
       <el-table-column type="selection" width="55" />
       <el-table-column label="序号" width="60">
         <template #default="{ $index }">
@@ -53,11 +41,7 @@
 
     <!-- 分页 -->
     <div class="flex justify-center mt-6">
-      <Pagination
-        :pagination="pagination"
-        @page-change="handlePageChange"
-        @size-change="handleSizeChange"
-      />
+      <Pagination :pagination="pagination" @page-change="handlePageChange" @size-change="handleSizeChange" />
     </div>
   </div>
 
@@ -182,9 +166,6 @@ const handleDelete = (row: Dept) => {
       await deleteDept(row.id)
       ElMessage.success('删除部门成功')
       getDepts()
-    })
-    .catch(() => {
-      ElMessage.info('已取消删除操作')
     })
 }
 

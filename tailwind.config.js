@@ -10,7 +10,8 @@ export default {
         info: '#909399',
       },
       fontFamily: {
-        sans: ['"PingFang SC"', 'Roboto', 'sans-serif'],
+        sans: ['"Helvetica Neue"', 'Arial', 'sans-serif'],
+        serif: ['KaiTi', 'STKaiti', 'serif'],
       },
     },
   },

@@ -1,6 +1,6 @@
 import axios from 'axios'
 import type { AxiosResponse } from 'axios'
-import { ElMessage } from 'element-plus'
+import { MessagePlugin } from 'tdesign-vue-next'
 
 const service = axios.create({
   baseURL: import.meta.env.VITE_API_BASE_URL || '/api',
@@ -27,13 +27,13 @@ service.interceptors.response.use(
   (response: AxiosResponse) => {
     const { data } = response
     if (data.code !== 1) {
-      ElMessage.error(data.message || '请求失败')
+      MessagePlugin.error(data.message || '请求失败', 800)
       return Promise.reject(data)
     }
     return data.data ?? data // 兼容后端格式
   },
   (error) => {
-    ElMessage.error(error.response?.data?.message || '网络错误')
+    MessagePlugin.error(error.response?.data?.message || '网络错误')
     return Promise.reject(error)
   },
 )
