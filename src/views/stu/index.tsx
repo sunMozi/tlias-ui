@@ -192,6 +192,7 @@ export default defineComponent(() => {
       } else {
         await createStu(form as unknown as Student)
         MessagePlugin.success('新增成功')
+        dialogVisible.value = false
       }
     } else {
       const errors = result as Record<string, { message: string }[]>
@@ -311,7 +312,7 @@ export default defineComponent(() => {
         </Form>
         <div class="flex justify-left mx-4 mt-5">
           <Button theme="success" variant="base" onClick={addStudent}>
-            新增学院
+            新增学生
           </Button>
           <Button
             onClick={delStuBatch}

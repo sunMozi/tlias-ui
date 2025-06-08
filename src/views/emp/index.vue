@@ -7,25 +7,13 @@
         <!-- 姓名 -->
         <div class="flex items-center gap-2 whitespace-nowrap">
           <span class="text-gray-700 text-sm font-medium">姓名</span>
-          <el-input
-            v-model="filters.name"
-            placeholder="请输入员工姓名"
-            clearable
-            class="w-48"
-            size="default"
-          />
+          <el-input v-model="filters.name" placeholder="请输入员工姓名" clearable class="w-48" size="default" />
         </div>
 
         <!-- 性别 -->
         <div class="flex items-center gap-2 whitespace-nowrap w-32">
           <span class="text-gray-700 text-sm font-medium">性别</span>
-          <el-select
-            v-model="filters.gender"
-            placeholder="请选择"
-            clearable
-            class="w-32"
-            size="default"
-          >
+          <el-select v-model="filters.gender" placeholder="请选择" clearable class="w-32" size="default">
             <el-option label="男" value="1" />
             <el-option label="女" value="2" />
           </el-select>
@@ -34,19 +22,9 @@
         <!-- 入职时间 -->
         <div class="flex items-center gap-2 whitespace-nowrap">
           <span class="text-gray-700 text-sm font-medium">入职时间</span>
-          <el-date-picker
-            v-model="filters.entryDateRange"
-            type="daterange"
-            start-placeholder="开始日期"
-            end-placeholder="结束日期"
-            range-separator="至"
-            format="YYYY-MM-DD"
-            value-format="YYYY-MM-DD"
-            unlink-panels
-            clearable
-            class="w-72"
-            size="default"
-          />
+          <el-date-picker v-model="filters.entryDateRange" type="daterange" start-placeholder="开始日期"
+            end-placeholder="结束日期" range-separator="至" format="YYYY-MM-DD" value-format="YYYY-MM-DD" unlink-panels
+            clearable class="w-72" size="default" />
         </div>
 
         <!-- 查询 / 清空 -->
@@ -59,60 +37,70 @@
       <!-- 操作按钮区 -->
       <div class="mt-4 flex gap-3">
         <el-button type="primary" icon="Plus" @click="handleAddEmployee"> 添加员工</el-button>
-        <el-button
-          type="danger"
-          icon="Delete"
-          :disabled="!selectedRows.length"
-          @click="handleBatchDelete"
-        >
+        <el-button type="danger" icon="Delete" :disabled="!selectedRows.length" @click="handleBatchDelete">
           批量删除
         </el-button>
       </div>
     </div>
 
     <!-- 员工表格 -->
-    <el-table :data="empList" v-loading="loading" border @selection-change="handleSelectionChange">
+    <el-table :data="empList" v-loading="loading" border @selection-change="handleSelectionChange"
+      class="bg-white rounded-lg shadow-md border border-gray-200" row-class-name="hover:bg-gray-50"
+      style="font-size: 14px; line-height: 1.6;">
+      <!-- 选择列 -->
       <el-table-column type="selection" width="55" />
-      <el-table-column prop="name" label="姓名" />
-      <el-table-column prop="gender" label="性别" :formatter="formatGender" />
-      <el-table-column label="头像">
+
+      <!-- 姓名 -->
+      <el-table-column prop="name" label="姓名" header-align="center" align="center" />
+
+      <!-- 性别 -->
+      <el-table-column prop="gender" label="性别" :formatter="formatGender" header-align="center" align="center" />
+
+      <!-- 头像 -->
+      <el-table-column label="头像" header-align="center" align="center" width="120">
         <template #default="{ row }">
-          <div
-            class="w-[100px] h-[50px] mx-a overflow-hidden rounded-lg border border-gray-200 shadow-sm"
-          >
-            <el-image :src="row.image" fit="cover" class="w-full h-full object-cover" />
+          <div class="w-[80px] h-[40px] mx-auto overflow-hidden rounded-lg border border-gray-300 shadow-sm">
+            <el-image :src="row.image" fit="cover" class="w-full h-full object-cover rounded-lg" preview-teleported />
           </div>
         </template>
       </el-table-column>
 
-      <el-table-column prop="deptName" label="所属部门" />
-      <el-table-column prop="job" label="职位" :formatter="formatDept" />
-      <el-table-column prop="entryDate" label="入职日期" />
-      <el-table-column prop="updateTime" min-width="100" label="最后操作时间" />
-      <el-table-column label="操作" min-width="100" align="center">
+      <!-- 所属部门 -->
+      <el-table-column prop="deptName" label="所属部门" header-align="center" align="center" />
+
+      <!-- 职位 -->
+      <el-table-column prop="job" label="职位" :formatter="formatDept" header-align="center" align="center" />
+
+      <!-- 入职日期 -->
+      <el-table-column prop="entryDate" label="入职日期" header-align="center" align="center" />
+
+      <!-- 最后操作时间 -->
+      <el-table-column prop="updateTime" min-width="130" label="最后操作时间" header-align="center" align="center" />
+
+      <!-- 操作列 -->
+      <el-table-column label="操作" min-width="140" align="center" header-align="center">
         <template #default="{ row }">
-          <el-button type="primary" size="small" @click="handleEdit(row)">编辑</el-button>
-          <el-button type="danger" size="small" @click="handleDelete(row)">删除</el-button>
+          <el-button type="primary" size="small" class="mr-2 transition duration-200 ease-in-out hover:shadow-lg"
+            @click="handleEdit(row)" style="background: linear-gradient(90deg, #3b82f6, #2563eb); border:none;">
+            编辑
+          </el-button>
+          <el-button type="danger" size="small" class="transition duration-200 ease-in-out hover:shadow-lg"
+            @click="handleDelete(row)" style="background: linear-gradient(90deg, #ef4444, #b91c1c); border:none;">
+            删除
+          </el-button>
         </template>
       </el-table-column>
     </el-table>
 
+
     <!-- 分页 -->
     <div class="flex justify-center mt-6">
-      <Pagination
-        :pagination="pagination"
-        @page-change="handlePageChange"
-        @size-change="handleSizeChange"
-      />
+      <Pagination :pagination="pagination" @page-change="handlePageChange" @size-change="handleSizeChange" />
     </div>
   </div>
 
-  <EmployeeEditDialog
-    :visible="editDialogVisible"
-    :employee="employee"
-    @close="editDialogVisible = false"
-    @save="handleSaveEmployee"
-  />
+  <EmployeeEditDialog :visible="editDialogVisible" :employee="employee" @close="editDialogVisible = false"
+    @save="handleSaveEmployee" />
 </template>
 
 <script lang="ts" setup>
@@ -225,14 +213,10 @@ const handleEdit = async (row: Employee) => {
 }
 /** 保存员工（新增/编辑） */
 const handleSaveEmployee = async () => {
-  if (!employee.value) return
-  // TODO: 调用保存或更新接口，例如：
-  // if (employee.value.id) { updateEmployee(employee.value) }
-  // else { createEmployee(employee.value) }
-  // 保存完成后：
   editDialogVisible.value = false
-  await getEmpList() // 保存员工后刷新列表
+  await getEmpList()
 }
+
 
 /** 删除单个员工 */
 const handleDelete = async (row: Employee) => {

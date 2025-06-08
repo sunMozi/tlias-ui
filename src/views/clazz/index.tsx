@@ -161,11 +161,23 @@ export default defineComponent(() => {
   }
 
   const saveForm = async () => {
-    const result = await formRef.value.validate()
+    try {
+      const result = await formRef.value.validate()
+      if (result !== true) {
+        // 表单校验错误处理
+        const errors = result as Record<string, { message: string }[]>
+        const errorMessages: string[] = []
+        Object.values(errors).forEach((fieldErrors) => {
+          fieldErrors.forEach((err) => {
+            if (err.message) errorMessages.push(err.message)
+          })
+        })
+        MessagePlugin.error(errorMessages.slice(0, 3).join('；') || '表单校验未通过，请检查输入')
+        return
+      }
 
-    if (result === true) {
+      dialogVisible.value = false
       const safePayload = omit(form.value, ['createTime', 'updateTime'])
-
       if (isEditMode.value) {
         await updateClazz(safePayload as Clazz)
         MessagePlugin.success('班级信息已更新')
@@ -174,17 +186,12 @@ export default defineComponent(() => {
         MessagePlugin.success('班级信息已新增')
       }
 
-      dialogVisible.value = false
-      getClazzAll()
-    } else {
-      const errors = result as Record<string, { message: string }[]>
-      const errorMessages: string[] = []
-      Object.values(errors).forEach((fieldErrors) => {
-        fieldErrors.forEach((err) => {
-          if (err.message) errorMessages.push(err.message)
-        })
-      })
-      MessagePlugin.error(errorMessages.slice(0, 3).join('；') || '表单校验未通过，请检查输入')
+      setTimeout(() => {
+        getClazzAll()
+      }, 200)
+    } catch (error) {
+      console.error('saveForm 出错:', error)
+      MessagePlugin.error('操作失败，请重试')
     }
   }
 
@@ -349,9 +356,8 @@ export default defineComponent(() => {
 
       {/* 通用弹窗 */}
       <Dialog
-        visible={dialogVisible.value}
+        v-model:visible={dialogVisible.value}
         header={isEditMode.value ? '编辑班级' : '新增班级'}
-        onClose={() => (dialogVisible.value = false)}
         width="600px"
         footer={() => (
           <>
